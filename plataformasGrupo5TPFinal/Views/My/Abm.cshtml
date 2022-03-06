@@ -1,0 +1,28 @@
+﻿@using System.Security.Claims;
+@{
+    Layout = "LayoutMain";
+}
+
+<center>
+    <div class="card">
+        <div class="row">
+            <div class="col-md-12">
+                <section>
+                    <h4>
+                        Hola
+                        @(((ClaimsIdentity)User.Identity).FindFirst(ClaimTypes.Name).Value)
+                    </h4>
+                    <br />
+                    <a href="/Usuarios">Usuarios</a>
+                    <br />
+                    <a href="/Reservas">Reservas</a>
+                    <br />
+                    <a href="/Cabañas">Cabañas</a>
+                    <br />
+                    <a href="/Hoteles">Hoteles</a>
+
+                </section>
+            </div>
+        </div>
+    </div>
+</center>

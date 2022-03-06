@@ -1,0 +1,60 @@
+﻿@model plataformasGrupo5TPFinal.Models.Usuario;
+@using System.Security.Claims;
+@using plataformasGrupo5TPFinal.Helpers;
+@using plataformasGrupo5TPFinal.Controllers;
+@{
+    ViewData["Title"] = "Perfil";
+    Layout = "LayoutMain";
+}
+
+<h2>Info de mi perfil</h2>
+
+<div>
+    <h4>
+        @(((ClaimsIdentity)User.Identity).FindFirst(ClaimTypes.Name).Value)
+    </h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            Documento
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.dni)
+        </dd>
+        <dt class="col-sm-2">
+            Nombre
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.nombre)
+        </dd>
+        <dt class="col-sm-2">
+            Mail
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.mail)
+        </dd>
+        <dt class="col-sm-2">
+            Admin
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.esAdmin)
+        </dd>
+        <dt class="col-sm-2">
+            Bloqueado
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.bloqueado)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a class="text-primary" asp-action="Edit" asp-route-id=" @(((ClaimsIdentity)User.Identity).FindFirst(ClaimTypes.NameIdentifier).Value)">Edit</a>
+</div>
+<hr />
+<div>
+    <a class="text-primary" asp-controller="Reservas" asp-action="ReservasUsuario" asp-route-id="@SessionsHelpers.GetValue(User,"dni")">Mis reservas</a>
+</div>
+<hr />
+<div>
+    <a class="text-primary" asp-controller="Usuarios" asp-action="CambiarPassword">Cambiar contraseña</a>
+</div>

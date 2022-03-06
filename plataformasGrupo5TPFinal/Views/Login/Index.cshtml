@@ -1,0 +1,32 @@
+﻿@{
+    Layout = "_Layout";
+ }
+@model plataformasGrupo5TPFinal.Models.Usuario
+<center>
+    <div class="card">
+        <div class="row">
+            <div class="col-md-12">
+                <section>
+                    <form asp-controller="Login" asp-action="Login" method="post">
+                        <h4>Iniciar sesión</h4>
+                        <hr />
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <div class="form-group text-left">
+                            <label asp-for="dni"></label>
+                            <input asp-for="dni" class="form-control" />
+                            <span asp-validation-for="dni" class="text-danger"></span>
+                        </div>
+                        <div class="form-group text-left">
+                            <label asp-for="password"></label>
+                            <input asp-for="password" class="form-control" />
+                            <span asp-validation-for="password" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-outline-dark">Inciar sesión</button>
+                        </div>
+                    </form>
+                </section>
+            </div>
+        </div>
+    </div>
+</center>
