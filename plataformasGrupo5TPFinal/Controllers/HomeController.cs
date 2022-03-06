@@ -21,11 +21,8 @@ namespace plataformasGrupo5TPFinal.Controllers
         }
         public IActionResult Index()
         {
-<<<<<<< HEAD
-            return View();
-=======
+
             return RedirectToAction("Index", "Login");
->>>>>>> remoto/master
         }
 
         public IActionResult Privacy()
