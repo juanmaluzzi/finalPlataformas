@@ -45,7 +45,7 @@ namespace plataformasGrupo5TPFinal.Models
         }
 
         // GET: Reservas/Create
-        public IActionResult Create()
+        public IActionResult Create(string codigoAloj ,DateTime fDesde ,DateTime fHasta, int dni)
         {
             return View();
         }
@@ -65,6 +65,8 @@ namespace plataformasGrupo5TPFinal.Models
             }
             return View(reservas);
         }
+
+        
 
         // GET: Reservas/Edit/5
         public async Task<IActionResult> Edit(int? id)
