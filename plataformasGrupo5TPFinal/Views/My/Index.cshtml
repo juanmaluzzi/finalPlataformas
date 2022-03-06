@@ -1,0 +1,26 @@
+﻿@using System.Security.Claims;
+@using System.Security.Principal;
+@using plataformasGrupo5TPFinal.Helpers;
+@model plataformasGrupo5TPFinal.Models.Usuario;
+<center>
+    <div class="card">
+        <div class="row">
+            <div class="col-md-12">
+                <section>
+                    <h4>
+                        Hola
+                        @(((ClaimsIdentity)User.Identity).FindFirst(ClaimTypes.Name).Value)
+                    </h4>
+                    <br />
+                    <a href="/My/Abm">Altas, Bajas y Modificaciones</a>
+                    <br />
+                    <a asp-controller="Usuarios" asp-action="UserProfile" asp-route-id="@(((ClaimsIdentity)User.Identity).FindFirst(ClaimTypes.NameIdentifier).Value)">Mi perfil</a>
+                    <br />
+                    <a asp-action="Buscador">Buscador de alojamientos</a>
+                    <br />
+                    <a asp-controller="Login" asp-action="LogOut" >Cerrar sesión</a>
+                </section>
+            </div>
+        </div>
+    </div>
+</center>
