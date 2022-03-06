@@ -2,6 +2,10 @@
 @using System.Security.Principal;
 @using plataformasGrupo5TPFinal.Helpers;
 @model plataformasGrupo5TPFinal.Models.Usuario;
+@{
+    Layout = "LayoutMain";
+}
+
 <center>
     <div class="card">
         <div class="row">
@@ -18,7 +22,7 @@
                     <br />
                     <a asp-action="Buscador">Buscador de alojamientos</a>
                     <br />
-                    <a asp-controller="Login" asp-action="LogOut" >Cerrar sesión</a>
+                    <a asp-controller="Login" asp-action="LogOut">Cerrar sesión</a>
                 </section>
             </div>
         </div>

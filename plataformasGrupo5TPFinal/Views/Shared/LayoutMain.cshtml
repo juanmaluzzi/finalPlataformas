@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using plataformasGrupo5TPFinal.Helpers;
+@using System.Security.Claims;
+@using System.Security.Principal;
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -23,7 +26,19 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link righty" asp-area="" asp-controller="Login" asp-action="SignIn">Registrarse</a>
+                            <a class="nav-link " asp-area="" asp-controller="My" asp-action="Buscador">Home</a>
+                        </li>
+                        @if (SessionsHelpers.GetValue(User, "admin").Equals("True"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link " asp-area="" asp-controller="My" asp-action="Abm">ABM</a>
+                            </li>
+                        }
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Usuarios" asp-action="UserProfile" asp-route-id="@(((ClaimsIdentity)User.Identity).FindFirst(ClaimTypes.NameIdentifier).Value)">Mi perfil</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link righty" asp-area="" asp-controller="Login" asp-action="LogOut">Cerrar sesión</a>
                         </li>
                     </ul>
                 </div>
@@ -35,6 +50,12 @@
             @RenderBody()
         </main>
     </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2022 - plataformasGrupo5TPFinal - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

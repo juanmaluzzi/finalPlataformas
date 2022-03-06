@@ -61,7 +61,7 @@ namespace plataformasGrupo5TPFinal.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Server=localhost\SQLEXPRESS;Database=finalPlataformas;Trusted_Connection=True;.
+        ///   Busca una cadena traducida similar a Server=localhost\SQLEXPRESS02;Database=FinalPlataformas;Trusted_Connection=True;.
         /// </summary>
         internal static string ConnectionString {
             get {
