@@ -1,5 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+<<<<<<< HEAD
+=======
+using System.Dynamic;
+>>>>>>> remoto/master
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -7,6 +11,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using plataformasGrupo5TPFinal.Data;
+<<<<<<< HEAD
+=======
+using plataformasGrupo5TPFinal.Helpers;
+using plataformasGrupo5TPFinal.ViewModels;
+>>>>>>> remoto/master
 
 namespace plataformasGrupo5TPFinal.Models
 {
@@ -45,7 +54,11 @@ namespace plataformasGrupo5TPFinal.Models
         }
 
         // GET: Reservas/Create
+<<<<<<< HEAD
         public IActionResult Create(string codigoAloj ,DateTime fDesde ,DateTime fHasta, int dni)
+=======
+        public IActionResult Create()
+>>>>>>> remoto/master
         {
             return View();
         }
@@ -66,8 +79,11 @@ namespace plataformasGrupo5TPFinal.Models
             return View(reservas);
         }
 
+<<<<<<< HEAD
         
 
+=======
+>>>>>>> remoto/master
         // GET: Reservas/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -157,5 +173,49 @@ namespace plataformasGrupo5TPFinal.Models
             return View(await _context.Reservas.Where(res => res.dniPersona.ToString() == dni).ToListAsync());
         }
 
+<<<<<<< HEAD
+=======
+        [HttpGet]
+        [Route("Reservas/ConfirmarReserva")]
+        public IActionResult ConfirmarReserva()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [Route("Reservas/ConfirmarReserva")]
+        public async Task<IActionResult> ConfirmarReserva(GestorReservasViewModel modelo)
+        {
+            if (ModelState.IsValid)
+            {
+                dynamic mymodel = new ExpandoObject();
+                var usuario = await _context.Usuario.FindAsync(int.Parse(SessionsHelpers.GetNameIdentifier(User).ToString()));
+                if (usuario == null)
+                {
+                    return RedirectToAction("Index","Login");
+                }
+                Alojamiento aloj;
+                var cabaña = await _context.Cabaña.FindAsync(int.Parse(modelo.AlojamientoSeleccionado));
+                if (cabaña == null)
+                {
+                    var hotel = await _context.Hotel.FindAsync(int.Parse(modelo.AlojamientoSeleccionado));
+                    aloj = hotel;
+                }
+                else
+                {
+                    aloj = cabaña;
+                }
+                mymodel.Alojamiento = aloj;
+                mymodel.Usuario = usuario;
+                mymodel.fechaDesde = modelo.FechaDesde;
+                mymodel.fechaHasta = modelo.FechaHasta;
+                
+                return View(mymodel);
+            }
+
+            return View();
+        }
+
+>>>>>>> remoto/master
     }
 }

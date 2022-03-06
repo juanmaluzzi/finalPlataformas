@@ -38,18 +38,25 @@ namespace plataformasGrupo5TPFinal.Controllers
             mymodel.Hotel = GetHoteles();
             mymodel.Cabaña = GetCabanias();
             
+<<<<<<< HEAD
            if (tipoAloj == 3) {  
+=======
+>>>>>>> remoto/master
 
             var hotel = from h in _context.Hotel
                         select h;
             var cabania = from c in _context.Cabaña
                           select c;
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> remoto/master
             
             //filtro por searchString si es que me lo pasaron... ESTO ES SOLO POR nombre
             if (!String.IsNullOrEmpty(searchString))
             {
+<<<<<<< HEAD
                 mymodel.Hotel = hotel.Where(h => h.nombre.Contains(searchString) ||  h.codigo.Equals(searchString));
                 mymodel.Cabaña = cabania.Where(c => c.nombre.Contains(searchString) || c.codigo.Equals(searchString));
 
@@ -57,6 +64,14 @@ namespace plataformasGrupo5TPFinal.Controllers
             }
 
             
+=======
+                mymodel.Hotel = hotel.Where(h => h.nombre.Contains(searchString));
+                mymodel.Cabaña = cabania.Where(c => c.nombre.Contains(searchString));
+
+             
+            }
+                             
+>>>>>>> remoto/master
 
             if (!String.IsNullOrEmpty(searchCiudad))
             {
@@ -64,6 +79,7 @@ namespace plataformasGrupo5TPFinal.Controllers
                 mymodel.Cabaña = cabania.Where(c => c.ciudad.Contains(searchCiudad));
 
 
+<<<<<<< HEAD
             } 
         } else if (tipoAloj == 1)
             {
@@ -93,6 +109,11 @@ namespace plataformasGrupo5TPFinal.Controllers
                 }
             }
                 return View(mymodel);
+=======
+            }
+                      
+            return View(mymodel);
+>>>>>>> remoto/master
 
         }
 
@@ -115,8 +136,37 @@ namespace plataformasGrupo5TPFinal.Controllers
             return cabania;
         }
 
+<<<<<<< HEAD
         
     }
 
     }
 
+=======
+        public async Task<IActionResult> BarraBuscador(string searchString)
+        {
+            
+            var hotel = from h in _context.Hotel
+                           select h;
+            var cabania = from c in _context.Cabaña
+                        select c;
+
+            //filtro por searchString si es que me lo pasaron...
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                hotel = hotel.Where(h => h.nombre.Contains(searchString));
+                cabania = cabania.Where(c => c.nombre.Contains(searchString));
+            }
+
+            if (searchString.Equals(hotel)) { 
+            //devuelvo el contenido a la vista
+            return View(await hotel.ToListAsync());
+        } else
+            {
+                return View(await cabania.ToListAsync());
+            }
+    }
+
+    }
+}
+>>>>>>> remoto/master

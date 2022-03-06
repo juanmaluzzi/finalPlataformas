@@ -7,6 +7,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using plataformasGrupo5TPFinal.Data;
+<<<<<<< HEAD
+=======
+using plataformasGrupo5TPFinal.ViewModels;
+using plataformasGrupo5TPFinal.Helpers;
+>>>>>>> remoto/master
 
 namespace plataformasGrupo5TPFinal.Models
 {
@@ -161,5 +166,55 @@ namespace plataformasGrupo5TPFinal.Models
             List<Reservas> reservas = _context.Reservas.Where(res => res.dniPersona == dni).ToList();
             return reservas;
         }
+<<<<<<< HEAD
+=======
+
+        [HttpGet]
+        [Route("Usuarios/CambiarPassword")]
+        public IActionResult CambiarPassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [Route("Usuarios/CambiarPassword")]
+        public async Task<IActionResult> CambiarPassword(CambioPasswordViewModel modelo)
+        {
+            if (ModelState.IsValid)
+            {
+                var usuario = await _context.Usuario.FindAsync(int.Parse(SessionsHelpers.GetNameIdentifier(User).ToString()));
+                if (usuario == null)
+                {
+                    return RedirectToAction("Login");
+                }
+
+                var result = ChangePassword(usuario, modelo.PasswordActual, modelo.NuevaPassword);
+
+                if (!result)
+                {
+                    return View();
+                }
+                else { 
+                    return RedirectToAction("UserProfile");
+                }
+            }
+            return View(modelo);
+        }
+
+        public bool ChangePassword(Usuario user, string passwordActual, string nuevaPassword)
+        {
+            if (user.password.Equals(passwordActual))
+            {
+                user.password = nuevaPassword;
+                _context.Update(user);
+                _context.SaveChanges();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+>>>>>>> remoto/master
     }
 }

@@ -82,7 +82,11 @@ namespace plataformasGrupo5TPFinal.Controllers
                 identity.AddClaim(new Claim(ClaimTypes.Name, result.nombre));
                 identity.AddClaim(new Claim("dni", result.dni.ToString()));
                 identity.AddClaim(new Claim("mail", result.mail));
+<<<<<<< HEAD
                 identity.AddClaim(new Claim(ClaimTypes.Role, result.esAdmin.ToString()));
+=======
+                identity.AddClaim(new Claim("admin", result.esAdmin.ToString()));
+>>>>>>> remoto/master
                 identity.AddClaim(new Claim("bloqueado", result.bloqueado.ToString()));
                 identity.AddClaim(new Claim("intentos", result.intentos.ToString()));
 
@@ -107,7 +111,18 @@ namespace plataformasGrupo5TPFinal.Controllers
                         else
                         {
                             Console.WriteLine("User ok");
+<<<<<<< HEAD
                             return RedirectToAction("Index", "My");
+=======
+                            if (result.esAdmin)
+                            {
+                                return RedirectToAction("Abm", "My");
+                            }
+                            else
+                            {
+                                return RedirectToAction("Buscador", "My");
+                            }
+>>>>>>> remoto/master
                         }
                     }
                     else

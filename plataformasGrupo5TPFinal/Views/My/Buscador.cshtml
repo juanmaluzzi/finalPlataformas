@@ -1,4 +1,11 @@
 ﻿@model dynamic
+<<<<<<< HEAD
+=======
+@{
+    Layout = "LayoutMain";
+}
+
+>>>>>>> remoto/master
 
 <form asp-controller="My" asp-action="Buscador" method="get">
     <p>
@@ -6,7 +13,11 @@
         <input type="submit" value="Filtrar" />
     </p>
     <select class="form-select" aria-label="Ciudad" name="searchCiudad">
+<<<<<<< HEAD
         <option selected value="">Elija una ciudad</option>
+=======
+        <option selected>Elija una ciudad</option>
+>>>>>>> remoto/master
         @foreach (Hotel hotel in Model.Hotel)
         {
             <option value="@hotel.ciudad">@hotel.ciudad</option>
@@ -17,6 +28,7 @@
         }
     </select>
 
+<<<<<<< HEAD
     <select class="form-select" aria-label="tipoAloj" name="tipoAloj">
         <option selected value="3">Elija tipo de Alojamiento</option>
 
@@ -26,10 +38,13 @@
 
     </select>
 
+=======
+>>>>>>> remoto/master
 
 </form>
 
 
+<<<<<<< HEAD
 <label for="start">Start date:</label>
 
 <input type="date" id="start" name="trip-start"
@@ -44,6 +59,8 @@
        min="@DateTime.Now" max="2023-12-31">
 
 
+=======
+>>>>>>> remoto/master
 
 <div class="container-fluid">
     <div class="row">
@@ -101,7 +118,11 @@
                         </div>
                         <br />
                         <div class="row my-auto align-content-center">
+<<<<<<< HEAD
                             <a class="btn btn-dark" asp-controller="Reservas" asp-action="Create" asp-route-id="codigoAloj=@cabania.codigo">Reservar</a>
+=======
+                            <a class="btn btn-dark" asp-controller="Reservas" asp-action="Create" asp-route-id="@cabania.codigo">Reservar</a>
+>>>>>>> remoto/master
                         </div>
                     </div>
                     <div class="card-footer text-muted">
