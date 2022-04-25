@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.ComponentModel.DataAnnotations;
+using plataformasGrupo5TPFinal.Data;
 
 namespace plataformasGrupo5TPFinal.Models
 {
@@ -14,6 +15,8 @@ namespace plataformasGrupo5TPFinal.Models
         public int estrellas { get; set; }
         public int cantPersonas { get; set; }
         public bool tv { get; set; }
+
+        private readonly UserContext _context;
 
         public override string ToString()
         {
@@ -28,5 +31,18 @@ namespace plataformasGrupo5TPFinal.Models
             return codigo;
         }
 
+        public List<Alojamiento> GetAlojamientos()
+        {
+            List<Alojamiento> alojs = new List<Alojamiento>();
+            foreach(Alojamiento hotel in _context.Hotel)
+            {
+                alojs.Add(hotel);
+            }
+            foreach (Alojamiento cabaña in _context.Cabaña)
+            {
+                alojs.Add(cabaña);
+            }
+            return alojs;
+        }
     }
 }

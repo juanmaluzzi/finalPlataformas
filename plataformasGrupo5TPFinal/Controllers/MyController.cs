@@ -8,7 +8,6 @@ using plataformasGrupo5TPFinal.Data;
 using plataformasGrupo5TPFinal.Controllers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
-using System.Dynamic;
 
 namespace plataformasGrupo5TPFinal.Controllers
 {
@@ -34,36 +33,21 @@ namespace plataformasGrupo5TPFinal.Controllers
 
         public async Task<IActionResult> Buscador(string searchString, string searchCiudad , int tipoAloj)
         {
-            dynamic mymodel = new ExpandoObject();
-            mymodel.Hotel = GetHoteles();
-            mymodel.Cabaña = GetCabanias();
-            
-
-            var hotel = from h in _context.Hotel
-                        select h;
-            var cabania = from c in _context.Cabaña
-                          select c;
-
-            
+            alojamientos = GetAlojamientos();
+             
             //filtro por searchString si es que me lo pasaron... ESTO ES SOLO POR nombre
             if (!String.IsNullOrEmpty(searchString))
             {
-                mymodel.Hotel = hotel.Where(h => h.nombre.Contains(searchString));
-                mymodel.Cabaña = cabania.Where(c => c.nombre.Contains(searchString));
-
-             
+                alojamientos = alojamientos.FindAll(h => h.nombre.Contains(searchString));
             }
                              
 
             if (!String.IsNullOrEmpty(searchCiudad))
             {
-                mymodel.Hotel = hotel.Where(h => h.ciudad.Contains(searchCiudad));
-                mymodel.Cabaña = cabania.Where(c => c.ciudad.Contains(searchCiudad));
-
-
+                alojamientos = alojamientos.FindAll(h => h.ciudad.Contains(searchCiudad));
             }
                       
-            return View(mymodel);
+            return View(alojamientos);
 
         }
 
@@ -109,6 +93,19 @@ namespace plataformasGrupo5TPFinal.Controllers
                 return View(await cabania.ToListAsync());
             }
     }
-
+        public List<Alojamiento> GetAlojamientos()
+        {
+            List<Alojamiento> alojs = new List<Alojamiento>();
+            foreach (Alojamiento hotel in _context.Hotel)
+            {
+                alojs.Add(hotel);
+            }
+            foreach (Alojamiento cabaña in _context.Cabaña)
+            {
+                alojs.Add(cabaña);
+            }
+            return alojs;
+        }
     }
+
 }

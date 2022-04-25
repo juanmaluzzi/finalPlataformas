@@ -44,9 +44,21 @@ namespace plataformasGrupo5TPFinal.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(usuario);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                var result = await _context.Usuario.Where(u => u.dni == User.dni).FirstOrDefaultAsync();
+                
+                if (result == null)
+                {
+                    //Usuario NO EXISTE
+                    _context.Add(usuario);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                {
+                    ViewData["errorSignIn"] = "El documento ingresado ya existe";
+                    return View("SignIn");
+                }
+
             }
             return View();
         }
@@ -58,11 +70,6 @@ namespace plataformasGrupo5TPFinal.Controllers
 
             if (!ModelState.IsValid)
             {
-                /* return BadRequest(new JObject() {
-                     { "StatusCode", 400 },
-                     { "Message", "El usuario ya existe, seleccione otro." }
-                 });
-                */
                 return RedirectToAction("Index", "Login");
             }
             else
@@ -71,65 +78,70 @@ namespace plataformasGrupo5TPFinal.Controllers
                 
                 if (result == null)
                 {
-                    //Usuario no encontrado
-                    return RedirectToAction("Index", "Login");
+                    //Usuario NO EXISTE
+                    ViewData["Mensaje"] = "Usuario y/o contraseña invalidos";
+                    return View("Index");
                 }
                 else
                 {
-                var identity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme,
-                            ClaimTypes.Name, ClaimTypes.Role);
-                identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, result.id.ToString()));
-                identity.AddClaim(new Claim(ClaimTypes.Name, result.nombre));
-                identity.AddClaim(new Claim("dni", result.dni.ToString()));
-                identity.AddClaim(new Claim("mail", result.mail));
-                identity.AddClaim(new Claim("admin", result.esAdmin.ToString()));
-                identity.AddClaim(new Claim("bloqueado", result.bloqueado.ToString()));
-                identity.AddClaim(new Claim("intentos", result.intentos.ToString()));
-
-                var principal = new ClaimsPrincipal(identity);
-                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
-                    principal,
-                    new AuthenticationProperties
-                    {
-                        ExpiresUtc = DateTime.Now.AddSeconds(3600),
-                        IsPersistent = false
-                    });
-
                     if (User.password == result.password)
                     {
-                        Console.WriteLine("Password ok");
+                        //Usuario autenticado correctamente
+                        var identity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme,
+                                    ClaimTypes.Name, ClaimTypes.Role);
+                 
+                        identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, result.id.ToString()));
+                        identity.AddClaim(new Claim(ClaimTypes.Name, result.nombre));
+                        identity.AddClaim(new Claim("dni", result.dni.ToString()));
+                        identity.AddClaim(new Claim("mail", result.mail));
+                        identity.AddClaim(new Claim("admin", result.esAdmin.ToString()));
+                        identity.AddClaim(new Claim("bloqueado", result.bloqueado.ToString()));
+                        identity.AddClaim(new Claim("intentos", result.intentos.ToString()));
+
+                        var principal = new ClaimsPrincipal(identity);
+                        
+                        await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
+                            principal,
+                            new AuthenticationProperties
+                            {
+                                ExpiresUtc = DateTime.Now.AddSeconds(3600),
+                                IsPersistent = false
+                            });
 
                         if (result.bloqueado)
                         {
-                            Console.WriteLine("User bloqueado");
-                            return RedirectToAction("Index", "Login");
+                            //Usuario BLOQUEADO
+                            ViewData["Mensaje"] = "El usuario se encuentra bloqueado";
+                            return View("Index");
                         }
                         else
                         {
-                            Console.WriteLine("User ok");
                             if (result.esAdmin)
                             {
+                                //Usuario logueado es ADMIN
                                 return RedirectToAction("Abm", "My");
                             }
                             else
                             {
+                                //Usuario logueado es NO ES ADMIN
                                 return RedirectToAction("Buscador", "My");
                             }
                         }
                     }
                     else
                     {
-                        Console.WriteLine("Password erronea");
                         SumarIntentos(result.id);
                         Console.WriteLine("Intentos: "+result.intentos);
                         if (result.intentos == 3)
                         {
-                            Console.WriteLine("Usuario bloqueado");
+                            //Usuario se HA BLOQUEADO
+                            ViewData["Mensaje"] = "Se ha bloqueado el usuario";
                             BloqueoUsuario(result.id);
-                            return RedirectToAction("Index", "Login");
+                            return View("Index");
                         }
                         //Usuario o contraseña no válida" 
-                        return RedirectToAction("Index", "Login");
+                        ViewData["Mensaje"] = "Usuario y/o contraseña invalidos";
+                        return View("Index");
                     }
                 }
             }
@@ -156,7 +168,7 @@ namespace plataformasGrupo5TPFinal.Controllers
             if (ModelState.IsValid)
             {
                 Usuario usuario = _context.Usuario.Where(u => u.id == id).FirstOrDefault();
-                usuario.intentos = usuario.intentos + 1;
+                usuario.intentos++;
                 _context.Update(usuario);
                 _context.SaveChanges();
                 return true;
@@ -169,5 +181,6 @@ namespace plataformasGrupo5TPFinal.Controllers
             await HttpContext.SignOutAsync();
             return Redirect("/Login");
         }
+
     }
 }

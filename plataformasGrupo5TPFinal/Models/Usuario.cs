@@ -11,10 +11,15 @@ namespace plataformasGrupo5TPFinal.Models
         public int id { get; set; }
         [Display(Name = "Documento")]
         public int dni { get; set; }
+        [Display(Name = "Nombre")]
         public string nombre { get; set; }
+        [Display(Name = "E-Mail")]
         public string mail { get; set; }
+        [Display(Name = "Password")]
         public string password { get; set; }
+        [Display(Name = "Admin")]
         public bool esAdmin { get; set; }
+        [Display(Name = "Bloqueado")]
         public bool bloqueado { get; set; }
         public int intentos { get; set; }
 
