@@ -10,8 +10,8 @@ using plataformasGrupo5TPFinal.Data;
 namespace plataformasGrupo5TPFinal.Migrations
 {
     [DbContext(typeof(UserContext))]
-    [Migration("20220630225014_jm")]
-    partial class jm
+    [Migration("20220704151539_inicial")]
+    partial class inicial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
