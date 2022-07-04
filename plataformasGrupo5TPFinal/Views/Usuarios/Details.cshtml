@@ -5,10 +5,10 @@
     Layout = "LayoutMain";
 }
 
-<h1>Details</h1>
+<h1>Detalle de usuario</h1>
 
 <div>
-    <h4>Usuario</h4>
+
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -56,6 +56,6 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model.id"><button class="btn btn-primary">Editar</button></a> |
+    <a asp-action="Index"><button class="btn btn-dark">Volver a la lista</button></a>
 </div>
