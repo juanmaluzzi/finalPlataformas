@@ -73,6 +73,53 @@ namespace plataformasGrupo5TPFinal.Models
             return View(usuario);
         }
 
+        public async Task<IActionResult> EditMyUser(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var usuario = await _context.Usuario.FindAsync(id);
+            if (usuario == null)
+            {
+                return NotFound();
+            }
+            return View(usuario);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditMyUser(int id, [Bind("id,dni,nombre,mail,password,esAdmin,bloqueado,intentos")] Usuario usuario)
+        {
+            if (id != usuario.id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(usuario);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!UsuarioExists(usuario.id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction("UserProfile", usuario);
+            }
+            return View(usuario);
+        }
+
         // GET: Usuarios/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -190,7 +237,7 @@ namespace plataformasGrupo5TPFinal.Models
                     return View();
                 }
                 else { 
-                    return RedirectToAction("UserProfile");
+                    return RedirectToAction("UserProfile", usuario);
                 }
             }
             return View(modelo);

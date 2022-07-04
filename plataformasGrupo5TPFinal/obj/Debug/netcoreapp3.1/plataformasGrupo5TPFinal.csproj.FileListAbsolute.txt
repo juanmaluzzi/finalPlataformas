@@ -969,3 +969,4 @@ C:\Users\franco.mastrantonio\Documents\Proyectos VS\finalPlataformas2207\platafo
 C:\Users\franco.mastrantonio\Documents\Proyectos VS\finalPlataformas2207\plataformasGrupo5TPFinal\obj\Debug\netcoreapp3.1\plataformasGrupo5TPFinal.dll
 C:\Users\franco.mastrantonio\Documents\Proyectos VS\finalPlataformas2207\plataformasGrupo5TPFinal\obj\Debug\netcoreapp3.1\plataformasGrupo5TPFinal.pdb
 C:\Users\franco.mastrantonio\Documents\Proyectos VS\finalPlataformas2207\plataformasGrupo5TPFinal\obj\Debug\netcoreapp3.1\plataformasGrupo5TPFinal.genruntimeconfig.cache
+C:\Users\franco.mastrantonio\Documents\Proyectos VS\finalPlataformas2207\plataformasGrupo5TPFinal\obj\Debug\netcoreapp3.1\Razor\Views\Usuarios\EditMyUser.cshtml.g.cs

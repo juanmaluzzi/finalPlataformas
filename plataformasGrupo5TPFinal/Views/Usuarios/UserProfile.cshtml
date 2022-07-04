@@ -47,14 +47,17 @@
         </dd>
     </dl>
 </div>
-<div>
-    <a class="text-primary" asp-action="Edit" asp-route-id=" @(((ClaimsIdentity)User.Identity).FindFirst(ClaimTypes.NameIdentifier).Value)">Edit</a>
-</div>
 <hr />
-<div>
-    <a class="text-primary" asp-controller="Reservas" asp-action="ReservasUsuario" asp-route-id="@SessionsHelpers.GetValue(User,"dni")">Mis reservas</a>
-</div>
-<hr />
-<div>
-    <a class="text-primary" asp-controller="Usuarios" asp-action="CambiarPassword">Cambiar contraseña</a>
+<div class="container">
+    <div class="row">
+        <div class="mr-2">
+            <a class="text-primary" asp-action="EditMyUser" asp-route-id=" @(((ClaimsIdentity)User.Identity).FindFirst(ClaimTypes.NameIdentifier).Value)"><button class="btn btn-primary">Editar</button></a>
+        </div>
+        <div class="mx-2">
+            <a class="text-primary" asp-controller="Reservas" asp-action="ReservasUsuario" asp-route-id="@SessionsHelpers.GetValue(User,"dni")"><button class="btn btn-danger">Mis reservas</button></a>
+        </div>
+        <div class="mx-2">
+            <a class="text-primary" asp-controller="Usuarios" asp-action="CambiarPassword"><button class="btn btn-secondary">Cambiar contraseña</button></a>
+        </div>
+    </div>
 </div>

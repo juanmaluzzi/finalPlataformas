@@ -79,9 +79,9 @@
                 @Html.DisplayFor(modelItem => item.tv)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.idCabana">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.idCabana">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.idCabana">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.idCabana"><button class="btn-primary">Editar</button></a> |
+                <a asp-action="Details" asp-route-id="@item.idCabana"><button class="btn-info">Detalle</button></a> |
+                <a asp-action="Delete" asp-route-id="@item.idCabana"><button class="btn-danger">Borrar</button></a>
             </td>
         </tr>
 }

@@ -1,7 +1,10 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\plataformasGrupo5TPFinal",
+    "\\plataformasGrupo5TPFinal\\Views",
+    "\\plataformasGrupo5TPFinal\\Views\\My"
   ],
-  "SelectedNode": "\\plataformasGrupo5TPFinal.sln",
+  "SelectedNode": "\\plataformasGrupo5TPFinal\\Views\\My\\Buscador.cshtml",
   "PreviewInSolutionExplorer": false
 }
