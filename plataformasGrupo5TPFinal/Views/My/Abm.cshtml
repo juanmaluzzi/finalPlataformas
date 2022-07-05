@@ -4,15 +4,17 @@
 }
 
 <center>
-    <div class="card">
+    <div class="card py-4 px-2" style="width: 300px">
         <div class="row">
             <div class="col-md-12">
                 <section>
                     <h4>
                         Hola
-                        @(((ClaimsIdentity)User.Identity).FindFirst(ClaimTypes.Name).Value)
+                        <span class="text-info">
+                            @(((ClaimsIdentity)User.Identity).FindFirst(ClaimTypes.Name).Value)
+                        </span>
                     </h4>
-                    <br />
+                    <hr />
                     <a href="/Usuarios"><button class="btn btn-dark btn-abm-list">Usuarios</button></a>
                     <br />
                     <a href="/Reservas"><button class="btn btn-dark btn-abm-list">Reservas</button></a>

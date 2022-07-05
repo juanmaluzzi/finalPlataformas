@@ -52,10 +52,11 @@
             <div class="form-group">
                 <input type="submit" value="Guardar" class="btn btn-primary" />
             </div>
-            <div>
-                <a asp-controller="Usuarios" asp-action="UserProfile" asp-route-id="@(((ClaimsIdentity)User.Identity).FindFirst(ClaimTypes.NameIdentifier).Value)"><button class="btn btn-dark">Volver a mi perfil</button></a>
-            </div>
+
         </form>
+        <div>
+            <a asp-controller="Usuarios" asp-action="UserProfile" asp-route-id="@(((ClaimsIdentity)User.Identity).FindFirst(ClaimTypes.NameIdentifier).Value)"><button class="btn btn-dark">Volver a mi perfil</button></a>
+        </div>
     </div>
 </div>
 
