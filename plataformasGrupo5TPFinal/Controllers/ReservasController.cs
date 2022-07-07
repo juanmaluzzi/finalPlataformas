@@ -153,10 +153,20 @@ namespace plataformasGrupo5TPFinal.Models
         {
             return _context.Reservas.Any(e => e.id == id);
         }
+
+
+        // GET: ReservasUsuario
         public async Task<IActionResult> ReservasUsuario(string dni)
         {
-            return View(await _context.Reservas.Where(res => res.dniPersona.ToString() == dni).ToListAsync());
+            //List<Reservas> listaReservas = await _context.Reservas.Where(res => res.dniPersona == dni).ToListAsync();
+            List<Reservas> listaReservas = await _context.Reservas.Where(res=> res.dniPersona.ToString() == dni).ToListAsync();
+            List<Reservas> listaReservasBruto = await _context.Reservas.ToListAsync();
+            int cantReservas = listaReservas.Count;
+            Console.WriteLine("Dni"+dni);
+            Console.WriteLine("Reservas del usuario: "+cantReservas);
+            return View(listaReservas);
         }
+
 
         [HttpGet]
         [Route("Reservas/ConfirmarReserva")]

@@ -31,6 +31,19 @@ namespace plataformasGrupo5TPFinal.Models
             return codigo;
         }
 
+        public float getPrecio(Alojamiento aloj) {
+            if(aloj is Hotel)
+            {
+                Hotel h = (Hotel)aloj;
+                return h.precioPorPersona;
+            }
+            else
+            {
+                Cabaña c = (Cabaña)aloj;
+                return c.precioDia;
+            }
+        }
+
         public List<Alojamiento> GetAlojamientos()
         {
             List<Alojamiento> alojs = new List<Alojamiento>();

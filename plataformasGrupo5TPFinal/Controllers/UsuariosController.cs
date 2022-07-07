@@ -205,12 +205,6 @@ namespace plataformasGrupo5TPFinal.Models
             return _context.Usuario.Any(e => e.id == id);
         }
 
-        public List<Reservas> ReservasUsuario(int dni)
-        {
-            List<Reservas> reservas = _context.Reservas.Where(res => res.dniPersona == dni).ToList();
-            return reservas;
-        }
-
         [HttpGet]
         [Route("Usuarios/CambiarPassword")]
         public IActionResult CambiarPassword()
