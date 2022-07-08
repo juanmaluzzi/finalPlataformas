@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "EfAWNrKIfFRBuJhUxBfqiRdOyGfZUd+J01MwM9b8hVEo3DtkSBr/LlQ+gsN44yVZQmARE/7GLIgUhfLKa21Gcg==",
+  "dgSpecHash": "dqSckLrFhR6FwoftwhV0Sue0n24Clvy/cIrYxFh9usIW2qYwagWR/3yK6N0+yzdT3U5F6X2H0QUIUCJjaWGdtA==",
   "success": true,
   "projectFilePath": "C:\\Users\\franco.mastrantonio\\Documents\\Proyectos VS\\finalPlataformas2207\\plataformasGrupo5TPFinal\\plataformasGrupo5TPFinal.csproj",
   "expectedPackageFiles": [
@@ -205,8 +205,7 @@
     "C:\\Users\\franco.mastrantonio\\.nuget\\packages\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
     "C:\\Users\\franco.mastrantonio\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512",
     "C:\\Users\\franco.mastrantonio\\.nuget\\packages\\system.xml.xmldocument\\4.3.0\\system.xml.xmldocument.4.3.0.nupkg.sha512",
-    "C:\\Users\\franco.mastrantonio\\.nuget\\packages\\system.xml.xmlserializer\\4.3.0\\system.xml.xmlserializer.4.3.0.nupkg.sha512",
-    "C:\\Users\\franco.mastrantonio\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\3.1.18\\microsoft.netcore.app.host.win-x64.3.1.18.nupkg.sha512"
+    "C:\\Users\\franco.mastrantonio\\.nuget\\packages\\system.xml.xmlserializer\\4.3.0\\system.xml.xmlserializer.4.3.0.nupkg.sha512"
   ],
   "logs": []
 }

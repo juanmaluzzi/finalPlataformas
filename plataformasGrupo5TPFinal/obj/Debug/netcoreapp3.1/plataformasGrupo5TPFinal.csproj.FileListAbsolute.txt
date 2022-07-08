@@ -921,8 +921,6 @@ C:\Users\franco.mastrantonio\Documents\Proyectos VS\finalPlataformas2207\platafo
 C:\Users\franco.mastrantonio\Documents\Proyectos VS\finalPlataformas2207\plataformasGrupo5TPFinal\obj\Debug\netcoreapp3.1\plataformasGrupo5TPFinal.RazorAssemblyInfo.cache
 C:\Users\franco.mastrantonio\Documents\Proyectos VS\finalPlataformas2207\plataformasGrupo5TPFinal\obj\Debug\netcoreapp3.1\plataformasGrupo5TPFinal.RazorAssemblyInfo.cs
 C:\Users\franco.mastrantonio\Documents\Proyectos VS\finalPlataformas2207\plataformasGrupo5TPFinal\obj\Debug\netcoreapp3.1\staticwebassets\plataformasGrupo5TPFinal.StaticWebAssets.Manifest.cache
-C:\Users\franco.mastrantonio\Documents\Proyectos VS\finalPlataformas2207\plataformasGrupo5TPFinal\obj\Debug\netcoreapp3.1\staticwebassets\plataformasGrupo5TPFinal.StaticWebAssets.xml
-C:\Users\franco.mastrantonio\Documents\Proyectos VS\finalPlataformas2207\plataformasGrupo5TPFinal\obj\Debug\netcoreapp3.1\scopedcss\bundle\plataformasGrupo5TPFinal.styles.css
 C:\Users\franco.mastrantonio\Documents\Proyectos VS\finalPlataformas2207\plataformasGrupo5TPFinal\obj\Debug\netcoreapp3.1\plataformasGrupo5TPFinal.TagHelpers.input.cache
 C:\Users\franco.mastrantonio\Documents\Proyectos VS\finalPlataformas2207\plataformasGrupo5TPFinal\obj\Debug\netcoreapp3.1\plataformasGrupo5TPFinal.TagHelpers.output.cache
 C:\Users\franco.mastrantonio\Documents\Proyectos VS\finalPlataformas2207\plataformasGrupo5TPFinal\obj\Debug\netcoreapp3.1\plataformasGrupo5TPFinal.RazorCoreGenerate.cache
@@ -970,3 +968,4 @@ C:\Users\franco.mastrantonio\Documents\Proyectos VS\finalPlataformas2207\platafo
 C:\Users\franco.mastrantonio\Documents\Proyectos VS\finalPlataformas2207\plataformasGrupo5TPFinal\obj\Debug\netcoreapp3.1\plataformasGrupo5TPFinal.pdb
 C:\Users\franco.mastrantonio\Documents\Proyectos VS\finalPlataformas2207\plataformasGrupo5TPFinal\obj\Debug\netcoreapp3.1\plataformasGrupo5TPFinal.genruntimeconfig.cache
 C:\Users\franco.mastrantonio\Documents\Proyectos VS\finalPlataformas2207\plataformasGrupo5TPFinal\obj\Debug\netcoreapp3.1\Razor\Views\Usuarios\EditMyUser.cshtml.g.cs
+C:\Users\franco.mastrantonio\Documents\Proyectos VS\finalPlataformas2207\plataformasGrupo5TPFinal\obj\Debug\netcoreapp3.1\plataformasGrupo5TPFinal.GeneratedMSBuildEditorConfig.editorconfig

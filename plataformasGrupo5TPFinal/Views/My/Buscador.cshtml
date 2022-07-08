@@ -56,11 +56,11 @@
                             </p>
                             @if (item is Hotel)
                             {
-                                <p class="float-right .text-success"> $ 99999999999  (Precio por Persona)</p>
+                                <p class="float-right .text-success"> $@item.getPrecio(item) (Precio por Persona)</p>
                             }
                             else
                             {
-                                <p class="float-right .text-success"> $ 1111111111111  (Precio por Dia)</p>
+                                <p class="float-right .text-success"> $@item.getPrecio(item) (Precio por Dia)</p>
                             }
                         </div>
                     </div>

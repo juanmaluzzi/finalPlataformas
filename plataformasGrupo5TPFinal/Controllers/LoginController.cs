@@ -131,7 +131,7 @@ namespace plataformasGrupo5TPFinal.Controllers
                     else
                     {
                         SumarIntentos(result.id);
-                        Console.WriteLine("Intentos: "+result.intentos);
+                        
                         if (result.intentos == 3)
                         {
                             //Usuario se HA BLOQUEADO
