@@ -191,22 +191,8 @@ namespace plataformasGrupo5TPFinal.Models
                     return RedirectToAction("Index","Login");
                 }
                 Alojamiento aloj;
-                var cabaña = await _context.Cabaña.FindAsync(int.Parse(modelo.AlojamientoSeleccionado));
-                if (cabaña == null)
-                {
-                    var hotel = await _context.Hotel.FindAsync(int.Parse(modelo.AlojamientoSeleccionado));
-                    aloj = hotel;
-                }
-                else
-                {
-                    aloj = cabaña;
-                }
-                mymodel.Alojamiento = aloj;
-                mymodel.Usuario = usuario;
-                mymodel.fechaDesde = modelo.FechaDesde;
-                mymodel.fechaHasta = modelo.FechaHasta;
-                
-                return View(mymodel);
+               
+               
             }
 
             return View();

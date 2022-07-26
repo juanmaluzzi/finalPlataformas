@@ -24,7 +24,7 @@ namespace plataformasGrupo5TPFinal.Models
             id = ID;
             fDesde = FDesde;
             fHasta = FHasta;
-            codAlojamiento = Propiedad.getCodigoAlojamiento();
+            codAlojamiento = Propiedad.aCodigo;
             dniPersona = Persona.getDNIUser();
             precio = Precio;
 

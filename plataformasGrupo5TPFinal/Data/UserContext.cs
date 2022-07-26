@@ -9,9 +9,8 @@ namespace plataformasGrupo5TPFinal.Data
 {
     public class UserContext : DbContext
     {
-        public DbSet<plataformasGrupo5TPFinal.Models.Cabaña> Cabaña { get; set; }
 
-        public DbSet<plataformasGrupo5TPFinal.Models.Hotel> Hotel { get; set; }
+        public DbSet<plataformasGrupo5TPFinal.Models.Alojamiento> Alojamiento { get; set; }
 
         public DbSet<plataformasGrupo5TPFinal.Models.Usuario> Usuario { get; set; }
 
@@ -64,39 +63,34 @@ namespace plataformasGrupo5TPFinal.Data
                    res.Property(r => r.precio).HasColumnType("real");
                });
 
-            //CABAÑAS
-            modelBuilder.Entity<Cabaña>().ToTable("Cabañas").HasKey(c => c.idCabana);
-            modelBuilder.Entity<Cabaña>(
-                cab =>
+            //ALOJAMIENTOS
+            modelBuilder.Entity<Alojamiento>()
+              .ToTable("Alojamiento")
+              .HasKey(a => a.id);
+
+            modelBuilder.Entity<Alojamiento>(
+                aloj =>
                 {
-                    cab.Property(c => c.codigo).HasColumnType("int").IsRequired(true);
-                    cab.Property(c => c.nombre).HasColumnType("nvarchar(100)");
-                    cab.Property(c => c.ciudad).HasColumnType("nvarchar(100)");
-                    cab.Property(c => c.barrio).HasColumnType("nvarchar(100)");
-                    cab.Property(c => c.estrellas).HasColumnType("int");
-                    cab.Property(c => c.cantPersonas).HasColumnType("int");
-                    cab.Property(c => c.tv).HasColumnType("bit");
-                    cab.Property(c => c.precioDia).HasColumnType("real");
-                    cab.Property(c => c.habitaciones).HasColumnType("int");
-                    cab.Property(c => c.baños).HasColumnType("int");
-                });
+                    aloj.Property(a => a.aCodigo).HasColumnType("int");
+                    aloj.Property(a => a.aCodigo).IsRequired(true);
+                    aloj.Property(a => a.aCiudad).HasColumnType("varchar(100)");
+                    aloj.Property(a => a.aCiudad).IsRequired(true);
+                    aloj.Property(a => a.aBarrio).HasColumnType("varchar(100)");
+                    aloj.Property(a => a.aBarrio).IsRequired(true);
+                    aloj.Property(a => a.aEstrellas).HasColumnType("int");
+                    aloj.Property(a => a.aEstrellas).IsRequired(true);
+                    aloj.Property(a => a.aCantPersonas).HasColumnType("int");
+                    aloj.Property(a => a.aCantPersonas).IsRequired(true);
+                    aloj.Property(a => a.aTV).HasColumnType("bit");
+                    aloj.Property(a => a.Tipo).HasColumnType("varchar(20)");
+                    aloj.Property(a => a.Tipo).IsRequired(true);
+                    aloj.Property(a => a.cPrecioxDia).HasColumnType("float");
+                    aloj.Property(a => a.cHabitaciones).HasColumnType("int");
+                    aloj.Property(a => a.cbanios).HasColumnType("int");
+                    aloj.Property(a => a.hPrecioxPersona).HasColumnType("float");
+                }
+            );
 
-            //HOTELES
-            modelBuilder.Entity<Hotel>().ToTable("Hotel").HasKey(h => h.idHotel);
-            modelBuilder.Entity<Hotel>(
-               hot =>
-               {
-                   hot.Property(h => h.codigo).HasColumnType("int").IsRequired(true);
-                   hot.Property(h => h.nombre).HasColumnType("nvarchar(100)");
-                   hot.Property(h => h.ciudad).HasColumnType("nvarchar(100)");
-                   hot.Property(h => h.barrio).HasColumnType("nvarchar(100)");
-                   hot.Property(h => h.estrellas).HasColumnType("int");
-                   hot.Property(h => h.cantPersonas).HasColumnType("int");
-                   hot.Property(h => h.tv).HasColumnType("int");
-                   hot.Property(h => h.precioPorPersona).HasColumnType("real");
-               });
-
-            modelBuilder.Ignore<Alojamiento>();
         }
     }
 }

@@ -124,7 +124,7 @@ namespace plataformasGrupo5TPFinal.Controllers
                             else
                             {
                                 //Usuario logueado es NO ES ADMIN
-                                return RedirectToAction("Buscador", "My");
+                                return RedirectToAction("Buscador", "Alojamientos");
                             }
                         }
                     }

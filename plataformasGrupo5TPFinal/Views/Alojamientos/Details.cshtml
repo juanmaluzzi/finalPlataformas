@@ -1,0 +1,85 @@
+﻿@model plataformasGrupo5TPFinal.Models.Alojamiento
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "LayoutMain";
+}
+
+<h1>Detalle de alojamiento</h1>
+
+<div>
+
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.aCodigo)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.aCodigo)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.aCiudad)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.aCiudad)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.aBarrio)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.aBarrio)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.aEstrellas)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.aEstrellas)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.aCantPersonas)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.aCantPersonas)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.aTV)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.aTV)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Tipo)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Tipo)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.cPrecioxDia)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.cPrecioxDia)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.cHabitaciones)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.cHabitaciones)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.cbanios)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.cbanios)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.hPrecioxPersona)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.hPrecioxPersona)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.id"><button class="btn btn-primary">Editar</button></a> |
+    <a asp-action="Index"><button class="btn btn-dark">Volver a la lista</button></a>
+</div>
