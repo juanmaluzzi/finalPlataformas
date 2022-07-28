@@ -1161,3 +1161,4 @@ C:\Users\franco.mastrantonio\Documents\Proyectos VS\finalPlataformas2207V2\plata
 C:\Users\franco.mastrantonio\Documents\Proyectos VS\finalPlataformas2207V2\plataformasGrupo5TPFinal\obj\Debug\netcoreapp3.1\Razor\Views\Alojamientos\Edit.cshtml.g.cs
 C:\Users\franco.mastrantonio\Documents\Proyectos VS\finalPlataformas2207V2\plataformasGrupo5TPFinal\obj\Debug\netcoreapp3.1\Razor\Views\Alojamientos\Index.cshtml.g.cs
 C:\Users\franco.mastrantonio\Documents\Proyectos VS\finalPlataformas2207V2\plataformasGrupo5TPFinal\obj\Debug\netcoreapp3.1\Razor\Views\Alojamientos\Buscador.cshtml.g.cs
+C:\Users\franco.mastrantonio\Documents\Proyectos VS\finalPlataformas2207V2\plataformasGrupo5TPFinal\obj\Debug\netcoreapp3.1\Razor\Views\Reservas\ConfirmarReserva.cshtml.g.cs

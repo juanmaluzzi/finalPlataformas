@@ -55,7 +55,7 @@ namespace plataformasGrupo5TPFinal.Data
             modelBuilder.Entity<Reservas>(
                res =>
                {
-                   res.Property(r => r.id).HasColumnType("int").IsRequired(true);
+                   //res.Property(r => r.id).HasColumnType("int").IsRequired(true);
                    res.Property(r => r.fDesde).HasColumnType("DateTime");
                    res.Property(r => r.fHasta).HasColumnType("DateTime");
                    res.Property(r => r.codAlojamiento).HasColumnType("int");

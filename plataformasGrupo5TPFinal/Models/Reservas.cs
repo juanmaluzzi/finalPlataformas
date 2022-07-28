@@ -18,14 +18,15 @@ namespace plataformasGrupo5TPFinal.Models
         public int dniPersona { get; set; }
         public float precio { get; set; }
 
+
         public Reservas() { }
-        public Reservas (int ID, DateTime FDesde, DateTime FHasta, Alojamiento Propiedad, Usuario Persona , float Precio)
+        public Reservas (int ID, DateTime FDesde, DateTime FHasta, int CodAlojamiento, int DniUser , float Precio)
         {
             id = ID;
             fDesde = FDesde;
             fHasta = FHasta;
-            codAlojamiento = Propiedad.aCodigo;
-            dniPersona = Persona.getDNIUser();
+            codAlojamiento = CodAlojamiento;
+            dniPersona = DniUser;
             precio = Precio;
 
         }

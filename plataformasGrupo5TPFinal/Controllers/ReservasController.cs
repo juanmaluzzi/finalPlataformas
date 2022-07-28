@@ -173,30 +173,81 @@ namespace plataformasGrupo5TPFinal.Models
 
         [HttpGet]
         [Route("Reservas/ConfirmarReserva")]
-        public IActionResult ConfirmarReserva()
+        public async Task<IActionResult> ConfirmarReserva(int id)
         {
+            Console.WriteLine("Codigo alojamiento: "+id.ToString());
+            Alojamiento aloj = await _context.Alojamiento.FirstOrDefaultAsync(aloj => aloj.aCodigo == id);
+            
+            if(aloj != null)
+            {
+                Console.WriteLine("Se encontro alojamiento codigo: " + aloj.ToString());
+                ViewData["codAloj"] = aloj.aCodigo;
+                ViewData["tipo"] = aloj.Tipo;
+                if (aloj.Tipo == "Hotel")
+                {
+                    ViewData["precio"] = aloj.hPrecioxPersona;
+                }
+                else
+                {
+                    ViewData["precio"] = aloj.cPrecioxDia;
+                }
+
+            }
+            else
+            {
+                Console.WriteLine("No se encontro alojamiento");
+            }
             return View();
         }
 
         [HttpPost]
-        [Route("Reservas/ConfirmarReserva")]
-        public async Task<IActionResult> ConfirmarReserva(GestorReservasViewModel modelo)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ConfirmarReserva(DateTime fdesde, DateTime fhasta, float precio, int codAlojamiento)
         {
+            Console.WriteLine("fdesde: " + fdesde.ToString());
+            Console.WriteLine("fhasta: " + fhasta.ToString());
+            Console.WriteLine("precio: " + precio.ToString());
+            Console.WriteLine("codAlojamiento: " + codAlojamiento.ToString());
             if (ModelState.IsValid)
             {
-                dynamic mymodel = new ExpandoObject();
-                var usuario = await _context.Usuario.FindAsync(int.Parse(SessionsHelpers.GetNameIdentifier(User).ToString()));
-                if (usuario == null)
+                if(fdesde <= DateTime.Now)
                 {
-                    return RedirectToAction("Index","Login");
+                    ViewData["mensaje"] = "No se puede reservar hacia el pasado";
+                    ViewData["codAloj"] = codAlojamiento.ToString();
+                    return View();
                 }
-                Alojamiento aloj;
-               
-               
-            }
+                if (fhasta < fdesde)
+                {
+                    ViewData["codAloj"] = codAlojamiento.ToString();
+                    ViewData["mensaje"] = "No se puede reservar hasta una fecha anterior al comienzo";
+                    return View();
+                }
+                int idUser = int.Parse(SessionsHelpers.GetNameIdentifier(User).ToString());
+                Console.WriteLine("idUser: " + idUser.ToString());
 
+                Reservas reserva = new Reservas(0, fdesde, fhasta, codAlojamiento, idUser, precio);
+                try
+                {
+                    Console.WriteLine("se agrega al contexto");
+                    _context.Add(reserva);
+                    Console.WriteLine("se agregó al contexto");
+                    Console.WriteLine("se guardan los cambios en la db");
+                    await _context.SaveChangesAsync();
+                    Console.WriteLine("se pudo guardar en la db");
+                    return RedirectToAction("ReservasUsuario", new { id = idUser });
+                }
+                catch(Exception e)
+                {
+                    ViewData["mensaje"] = "Hubo un error al guardar";
+                    ViewData["codAloj"] = codAlojamiento.ToString();
+                    Console.WriteLine("no se pudo guardar en la db");
+                    return View();
+                }
+                
+            }
             return View();
         }
+
 
     }
 }
