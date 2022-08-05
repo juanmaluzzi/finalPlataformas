@@ -49,6 +49,7 @@ namespace plataformasGrupo5TPFinal.Controllers
                 if (result == null)
                 {
                     //Usuario NO EXISTE
+                    usuario.password = Encrypt.GetSHA265(usuario.password);
                     _context.Add(usuario);
                     await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));
@@ -84,6 +85,7 @@ namespace plataformasGrupo5TPFinal.Controllers
                 }
                 else
                 {
+                    User.password = Encrypt.GetSHA265(password);
                     if (User.password == result.password)
                     {
                         //Usuario autenticado correctamente

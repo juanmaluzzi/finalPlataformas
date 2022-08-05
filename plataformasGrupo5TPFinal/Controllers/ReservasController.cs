@@ -169,35 +169,6 @@ namespace plataformasGrupo5TPFinal.Models
             Console.WriteLine("Reservas del usuario: "+cantReservas);
             return View(listaReservas);
         }
-
-
-        //public async Task<IActionResult> ConfirmarReserva(int id)
-        //{
-        //    Console.WriteLine("Codigo alojamiento: "+id.ToString());
-        //    Alojamiento aloj = await _context.Alojamiento.FirstOrDefaultAsync(aloj => aloj.aCodigo == id);
-        //    
-        //    if(aloj != null)
-        //    {
-        //        Console.WriteLine("Se encontro alojamiento codigo: " + aloj.ToString());
-        //        ViewData["codAloj"] = aloj.aCodigo;
-        //        ViewData["tipo"] = aloj.Tipo;
-        //        if (aloj.Tipo == "Hotel")
-        //        {
-        //            ViewData["precio"] = aloj.hPrecioxPersona;
-        //        }
-        //        else
-        //        {
-        //            ViewData["precio"] = aloj.cPrecioxDia;
-        //        }
-        //
-        //    }
-        //    else
-        //    {
-        //        Console.WriteLine("No se encontro alojamiento");
-        //    }
-        //    return View();
-        //}
-        //
         
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -213,13 +184,11 @@ namespace plataformasGrupo5TPFinal.Models
                 int idUser = int.Parse(SessionsHelpers.GetNameIdentifier(User).ToString());
                 Console.WriteLine("idUser: " + idUser.ToString());
                 reserva.dniPersona = idUser;
-                //Reservas reserva = new Reservas(0, fdesde, fhasta, codAlojamiento, idUser, precio);
                 try
                 {
                     Console.WriteLine("se agrega al contexto");
                     _context.Add(reserva);
                     Console.WriteLine("se agregó al contexto");
-                    Console.WriteLine("se guardan los cambios en la db");
                     await _context.SaveChangesAsync();
                     Console.WriteLine("se pudo guardar en la db");
                     return RedirectToAction("ReservasUsuario", new { id = idUser });
