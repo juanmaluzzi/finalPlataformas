@@ -1,66 +1,246 @@
 ﻿@model IEnumerable<plataformasGrupo5TPFinal.Models.Alojamiento>
 @{
     Layout = "LayoutMain";
+    List<String> ciudades = new List<string>();
+    @foreach (var item in Model)
+    {
+        if (!ciudades.Contains(item.aCiudad)){
+            ciudades.Add(item.aCiudad);
+        }
+    }
+    @if (ViewBag.Message != null)
+{
+<script type="text/javascript">
+            window.onload = function () {
+                alert("@ViewBag.Message");
+        };
+</script>
+}
+
+@if (TempData["status"] != null)
+{
+    <script type="text/javascript">
+            window.onload = function () {
+                alert("@TempData["status"]");
+            };
+    </script>
+}
+
 }
 
 
-<form asp-controller="Alojamientos" asp-action="Buscador" method="get">
-    <p>
-        Nombre <input typepe="text" name="searchString" />
-        <input type="submit" value="Filtrar" />
-    </p>
-    <select class="form-select" aria-label="Ciudad" name="searchCiudad">
-        <option selected>Elija una ciudad</option>
-        @foreach (var item in Model)
-        {
-            <option value="@item.aCiudad">@item.aCiudad</option>
-        }
-    </select>
-
-
-</form>
-
-
-
-<div class="container-fluid">
+<div class="container">
     <div class="row">
-        <div class="col-12">
+        <form asp-controller="Alojamientos" asp-action="Buscador" method="get">
+            <div class="row">
+                <div class="form-group mt-1 col-md-2 align-self-end">
+                    <label class="control-label">Ciudad: </label>
+                    <select class="form-select border-info text-info" id="aCiudad" name="aCiudad" required>
+                        
+                        @foreach(string ciudad in ciudades){
+                            <option value="@ciudad">@ciudad</option>
+                        }
+                    </select>
+                    <!--
+                    <input type="text" name="aCiudad" class="form-control border-info text-info" required />
+                    -->
+                </div>
+
+                <div class="form-group mt-1 col-md-2 align-self-end">
+                    <label class="control-label">Desde </label>
+                    <input class="form-control border-info text-info valid" required type="date"
+                           data-val="true" data-val-required="The fDesde field is required."
+                           id="fDesde" name="fDesde" aria-describedby="fDesde-error" aria-invalid="false">
+                </div>
+
+                <div class="form-group mt-1  col-md-2 align-self-end">
+                    <label class="control-label">Hasta </label>
+                    <input class="form-control border-info text-info valid" required type="date"
+                           data-val="true" data-val-required="The fHasta field is required."
+                           id="fHasta" name="fHasta" aria-describedby="fHasta-error" aria-invalid="false">
+                </div>
+
+                <div class="form-group mt-1 col-md-2 align-self-end">
+                    <label class="control-label">Cantidad de Personas</label>
+                    <input type="number" min="1" name="aCantPersonas" class="form-control border-info text-info" required />
+                </div>
+
+                <div class="form-group mt-1 col-md-2 align-self-end">
+                    <label class="control-label">Tipo de alojamiento</label>
+                    <select class="form-select border-info text-info" id="aTipo" name="aTipo" required>
+                        <option value="Ambos">Ambos</option>
+                        <option value="Hotel">Hotel</option>
+                        <option value="Cabaña">Cabaña</option>
+                    </select>
+                </div>
+
+                <div class="form-group mt-1 col-md-1 align-self-end ">
+                    <input type="submit" value="Buscar" class="btn btn-primary"/>
+                </div>
+
+                <div class="form-group mt-1 col-md-1 align-self-end">
+                    <a asp-action="Buscador" class="btn btn-outline-primary">Limpiar</a>
+
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+
+@if (@ViewData["aCiudad"] != null)
+{
+    <div class="m-0 pb-0 col-md-12 align-self-start">
+        <p>
+            <span class="text-info">Búsqueda:</span> Cantidad de personas <span class="text-info">
+                @ViewData["aCantPersonas"]
+            </span> Ciudad <span class="text-info">
+                @ViewData["aCiudad"]
+            </span>
+            Tipo de alojamiento <span class="text-info">@ViewData["aTipo"]</span> Desde <span class="text-info">@ViewData["fDesde"] </span>
+            Hasta <span class="text-info">@ViewData["fHasta"]</span>
+        </p>
+        <p>
+            <span class="text-info">¿Desea agregar filtros a su búsqueda? </span>
+            @if ((float)@ViewData["aPrecioDesde"] > 0)
+            {
+                <span>Día/Persona desde $</span><span class="text-info">@ViewData["aPrecioDesde"]</span>
+            }
+            @if ((float)@ViewData["aPrecioHasta"] > 0)
+            {
+                <span>Día/Persona hasta $</span><span class="text-info">@ViewData["aPrecioHasta"]</span>
+            }
+            @if ((int)@ViewData["aEstrellas"] > 0)
+            {
+                <span>Estrellas </span><span class="text-info">@ViewData["aEstrellas"]</span>
+            }
+            @if ((float)@ViewData["rPrecioDesde"] > 0)
+            {
+                <span>Reserva desde $</span><span class="text-info">@ViewData["rPrecioDesde"]</span>
+            }
+            @if ((float)@ViewData["rPrecioHasta"] > 0)
+            {
+                <span>Reserva hasta $</span><span class="text-info">@ViewData["rPrecioHasta"]</span>
+            }
+        </p>
+    
+    </div>
+        <div class="row">
+            <div class="col-md-12 bg-light mb-4 bg-opacity-25 pb-2 pt-0">
+
+                <form asp-controller="Alojamientos" asp-action="Buscador" method="get">
+                    <input type="hidden" name="aCiudad" value="@ViewData["aCiudad"]" />
+                    <input type="hidden" name="aCantPersonas" value="@ViewData["aCantPersonas"]" />
+                    <input type="hidden" name="fDesde" value="@ViewData["fDesde"]" />
+                    <input type="hidden" name="aTipo" value="@ViewData["aTipo"]" />
+                    <input type="hidden" name="fHasta" value="@ViewData["fHasta"]" />
+
+                    <div class="row">
+                        <div class="form-group mt-1 col-md-2 align-self-end">
+                            <label class="control-label">Día/Persona desde $ </label>
+                            <input type="number" name="aPrecioDesde" min="1" class="form-control border-info text-info" />
+                        </div>
+
+                        <div class="form-group mt-1 col-md-2 align-self-end">
+                            <label class="control-label">Día/Persona hasta $</label>
+                            <input type="number" name="aPrecioHasta" min="1" class="form-control border-info text-info" />
+                        </div>
+
+                        <div class="form-group mt-1 col-md-2 align-self-end">
+                            <label class="control-label">Reserva desde $ </label>
+                            <input type="number" name="rPrecioDesde" min="1" class="form-control border-info text-info" />
+                        </div>
+
+                        <div class="form-group mt-1 col-md-2 align-self-end">
+                            <label class="control-label">Reserva hasta $</label>
+                            <input type="number" name="rPrecioHasta" min="1" class="form-control border-info text-info" />
+                        </div>
+
+                        <div class="form-group mt-1 col-md-2 align-self-end">
+                            <label class="control-label">Estrellas</label>
+                            <select class="form-select border-info text-info" id="aEstrellas" name="aEstrellas" required>
+                                <option value="0">Estrellas</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group mt-1 col-md-1 align-self-end ">
+                            <input type="button" value="Filtrar" class="btn btn-primary"/>
+                        </div>
+
+                        <div class="form-group mt-1 col-md-1 align-self-end">
+                            <a asp-action="Buscador" asp-route-fDesde="@ViewData["fDesde"]"
+                           asp-route-fHasta="@ViewData["fHasta"]" asp-route-aTipo="@ViewData["aTipo"]"
+                           asp-route-aCantPersonas="@ViewData["aCantPersonas"]" asp-route-aCiudad="@ViewData["aCiudad"]" class="btn btn-outline-primary">Quitar filtros</a>
+                        </div>
+
+                    </div>
+                </form>
+
+            </div>
+        </div>
+
+
+    <div class="container">
+        <div class="row">
             @foreach (var item in Model)
             {
-                <div class="card mb-4">
-                    <h5 class="card-header"> @item.aCodigo</h5>
-                    <img class="card-img-top" src="https://fakeimg.pl/800x400/" alt="Imagen Alojamiento">
+                <div class="card col-3 mx-2">
+                    <div class="row card-header">
+                        <span>@item.Tipo - </span>
+                        <p class="float-right">
+                            @item.aEstrellas 
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" fill="currentColor" class="bi bi-star-fill .text-warning" viewBox="0 0 16 16">
+                                <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                            </svg>    
+                        </p>
+                    </div>
+                    <img class="card-img-top" src="https://fakeimg.pl/200x200/" alt="Imagen Alojamiento">
                     <div class="card-body">
 
                         <h6 class="card-subtitle mb-2 text-muted">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
                                 <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z" />
                             </svg> @item.aCiudad , @item.aBarrio
                         </h6>
 
                         <div>
                             <p class="float-left"> @item.aCantPersonas huéspedes</p>
-                            <p class="float-right">TV @item.aTV </p>
+                            @if (item.aTV)
+                            {
+                                <p class="float-right">Con TV</p>
+                            }
                         </div>
                         <br />
                         <div class="row my-auto align-content-center">
-                            <a class="btn btn-dark" asp-controller="Reservas" asp-action="ConfirmarReserva" asp-route-id="@item.aCodigo">Reservar</a>
+                            
+                            <a asp-area="" asp-controller="Reservas" asp-action="ConfirmarReserva"
+                           asp-route-propiedadId="@item.id" asp-route-fDesde="@ViewData["fDesde"]"
+                           asp-route-fHasta="@ViewData["fHasta"]" asp-route-aTipo="@item.Tipo"
+                           asp-route-aCiudad="@item.aCiudad"
+                           asp-route-aTipoElegido="@item.Tipo"
+                           asp-route-aCantPersonas="@ViewData["aCantPersonas"]" class="btn btn-primary">
+                           Reservar
+                           </a>
+
+                           
                         </div>
                     </div>
                     <div class="card-footer text-muted">
                         <div>
-                            <p class="float-left">
-                                @item.aEstrellas <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill .text-warning" viewBox="0 0 16 16">
-                                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                                </svg>
-                            </p>
+
                             @if (item.Tipo == "Hotel")
                             {
-                                <p class="float-right .text-success"> $@item.cPrecioxDia (Precio por Persona)</p>
+                                <p class="float-right .text-success"> $@item.cPrecioxDia por persona</p>
                             }
                             else
                             {
-                                <p class="float-right .text-success"> $@item.cPrecioxDia (Precio por Dia)</p>
+                                <p class="float-right .text-success"> $@item.cPrecioxDia por día</p>
                             }
                         </div>
                     </div>
@@ -68,6 +248,7 @@
             }
         </div>
     </div>
-</div>
+    }
+   
 
 

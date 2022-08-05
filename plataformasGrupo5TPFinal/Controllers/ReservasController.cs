@@ -171,61 +171,49 @@ namespace plataformasGrupo5TPFinal.Models
         }
 
 
-        [HttpGet]
-        [Route("Reservas/ConfirmarReserva")]
-        public async Task<IActionResult> ConfirmarReserva(int id)
-        {
-            Console.WriteLine("Codigo alojamiento: "+id.ToString());
-            Alojamiento aloj = await _context.Alojamiento.FirstOrDefaultAsync(aloj => aloj.aCodigo == id);
-            
-            if(aloj != null)
-            {
-                Console.WriteLine("Se encontro alojamiento codigo: " + aloj.ToString());
-                ViewData["codAloj"] = aloj.aCodigo;
-                ViewData["tipo"] = aloj.Tipo;
-                if (aloj.Tipo == "Hotel")
-                {
-                    ViewData["precio"] = aloj.hPrecioxPersona;
-                }
-                else
-                {
-                    ViewData["precio"] = aloj.cPrecioxDia;
-                }
-
-            }
-            else
-            {
-                Console.WriteLine("No se encontro alojamiento");
-            }
-            return View();
-        }
-
+        //public async Task<IActionResult> ConfirmarReserva(int id)
+        //{
+        //    Console.WriteLine("Codigo alojamiento: "+id.ToString());
+        //    Alojamiento aloj = await _context.Alojamiento.FirstOrDefaultAsync(aloj => aloj.aCodigo == id);
+        //    
+        //    if(aloj != null)
+        //    {
+        //        Console.WriteLine("Se encontro alojamiento codigo: " + aloj.ToString());
+        //        ViewData["codAloj"] = aloj.aCodigo;
+        //        ViewData["tipo"] = aloj.Tipo;
+        //        if (aloj.Tipo == "Hotel")
+        //        {
+        //            ViewData["precio"] = aloj.hPrecioxPersona;
+        //        }
+        //        else
+        //        {
+        //            ViewData["precio"] = aloj.cPrecioxDia;
+        //        }
+        //
+        //    }
+        //    else
+        //    {
+        //        Console.WriteLine("No se encontro alojamiento");
+        //    }
+        //    return View();
+        //}
+        //
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> ConfirmarReserva(DateTime fdesde, DateTime fhasta, float precio, int codAlojamiento)
+        public async Task<IActionResult> CrearReserva([Bind("id,fDesde,fHasta,codAlojamiento,dniPersona,precio")] Reservas reserva)
         {
-            Console.WriteLine("fdesde: " + fdesde.ToString());
-            Console.WriteLine("fhasta: " + fhasta.ToString());
-            Console.WriteLine("precio: " + precio.ToString());
-            Console.WriteLine("codAlojamiento: " + codAlojamiento.ToString());
+            Console.WriteLine("fdesde: " + reserva.fDesde);
+            Console.WriteLine("fhasta: " + reserva.fHasta);
+            Console.WriteLine("precio: " + reserva.precio);
+            Console.WriteLine("codAlojamiento: " + reserva.codAlojamiento);
+            
             if (ModelState.IsValid)
             {
-                if(fdesde <= DateTime.Now)
-                {
-                    ViewData["mensaje"] = "No se puede reservar hacia el pasado";
-                    ViewData["codAloj"] = codAlojamiento.ToString();
-                    return View();
-                }
-                if (fhasta < fdesde)
-                {
-                    ViewData["codAloj"] = codAlojamiento.ToString();
-                    ViewData["mensaje"] = "No se puede reservar hasta una fecha anterior al comienzo";
-                    return View();
-                }
                 int idUser = int.Parse(SessionsHelpers.GetNameIdentifier(User).ToString());
                 Console.WriteLine("idUser: " + idUser.ToString());
-
-                Reservas reserva = new Reservas(0, fdesde, fhasta, codAlojamiento, idUser, precio);
+                reserva.dniPersona = idUser;
+                //Reservas reserva = new Reservas(0, fdesde, fhasta, codAlojamiento, idUser, precio);
                 try
                 {
                     Console.WriteLine("se agrega al contexto");
@@ -239,15 +227,73 @@ namespace plataformasGrupo5TPFinal.Models
                 catch(Exception e)
                 {
                     ViewData["mensaje"] = "Hubo un error al guardar";
-                    ViewData["codAloj"] = codAlojamiento.ToString();
+                    ViewData["codAloj"] = reserva.codAlojamiento;
                     Console.WriteLine("no se pudo guardar en la db");
                     return View();
                 }
                 
             }
+            Console.WriteLine("ModelState invalid");
             return View();
         }
 
+        [HttpGet]
+        [Route("Reservas/ConfirmarReserva")]
+        public IActionResult ConfirmarReserva(int propiedadId, String aTipoElegido, DateTime fDesde, int aCantPersonas, String aTipo, DateTime fHasta, String aCiudad)
+        {
+            Alojamiento alojElegido = _context.Alojamiento.ToList().FirstOrDefault(aloj => aloj.id == propiedadId);
+            float precio = calcularPrecioReserva(alojElegido, fDesde, fHasta, aCantPersonas);
+
+            ViewData["cPrecioxDia"] = 0.0;
+            ViewData["hPrecioxPersona"] = 0.0;
+
+            if(alojElegido.Tipo == "Hotel")
+            {
+                ViewData["hPrecioxPersona"] = alojElegido.hPrecioxPersona;
+            }
+            else
+            {
+                ViewData["cPrecioxDia"] = alojElegido.cPrecioxDia;
+            }
+
+            ViewData["propiedadId"] = alojElegido.id;
+            ViewData["aCantPersonas"] = aCantPersonas;
+            ViewData["aTipo"] = aTipo;
+            ViewData["aCiudad"] = alojElegido.aCiudad;
+            ViewData["aTipoElegido"] = aTipoElegido;
+
+            String dateDesde = fDesde.ToString("yyyy-MM-dd");
+            ViewData["fDesde"] = dateDesde;
+            String dateHasta = fHasta.ToString("yyyy-MM-dd");
+            ViewData["fHasta"] = dateHasta;
+            ViewData["precio"] = precio;
+            ViewData["fdHasta"] = fHasta;
+            ViewData["fdDesde"] = fDesde;
+            int idUser = int.Parse(SessionsHelpers.GetNameIdentifier(User).ToString());
+            Reservas reserva = new Reservas(0, fDesde, fHasta, alojElegido.aCodigo, idUser, precio);
+            return View(reserva);
+        }
+
+        public float calcularPrecioReserva(Alojamiento aloj, DateTime fDesde, DateTime fHasta, int cantPersonas)
+        {
+                Console.WriteLine(aloj.ToString() + "fDesde: "+fDesde.ToString()
+                    + "fHasta: " + fHasta.ToString()
+                    + "cantPers: " + cantPersonas.ToString());
+            float precio = 0;
+            var span = fHasta.Date.Subtract(fDesde.Date);
+            int dias = span.Days;
+            dias = dias + 1;
+
+            if (aloj != null && aloj.Tipo == "Hotel")
+            {
+                precio = Convert.ToSingle(aloj.hPrecioxPersona * cantPersonas * dias);
+            }
+            else if (aloj != null)
+            {
+                precio = Convert.ToSingle(aloj.cPrecioxDia * dias);
+            }
+            return precio;
+        }
 
     }
 }

@@ -107,3 +107,8 @@ body {
 .backgroundColor {
     background-color: #778A35;
 }
+
+.buscadorContainer {
+    display: flex;
+    flex-wrap:wrap;
+}
